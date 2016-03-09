@@ -4,7 +4,7 @@ namespace App\Http\Models;
 
 use DB;
 
-class Role extends Basic
+class Role extends Model
 {
     protected $table = 'roles';
 

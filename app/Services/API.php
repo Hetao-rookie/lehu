@@ -2,15 +2,17 @@
 
 namespace App\Services;
 
-use App\Services\Code;
+use App\Services\Coder;
 
-class API extends Code
+class API extends Coder;
 {
     protected $request;
 
     public function __construct($request)
     {
         $this->request = $request;
+
+        $this->response = true;
     }
 
     public function params()
@@ -25,6 +27,7 @@ class API extends Code
 
     public function file()
     {
+
     }
 
     public function response($statusCode = 200, $result = '')
@@ -32,12 +35,4 @@ class API extends Code
         return response($result, $statusCode)->header('Content-Type', 'application/json');
     }
 
-    public function code($code, $result = [])
-    {
-    }
-
-    public function status($status, $result = [])
-    {
-
-    }
 }

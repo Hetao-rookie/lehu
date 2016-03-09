@@ -3,16 +3,16 @@
 namespace App\Http\Models;
 
 use DB;
-use App\Services\Code;
+use App\Services\Coder;
 use Illuminate\Database\Eloquent\Model;
 
 class Basic extends Model
 {
-    protected $code;
+    protected $coder;
 
-    public function __construct(Code $code)
+    public function __construct()
     {
-        $this->code = $code;
+        $this->coder = new Coder();
     }
 
     public function code($code, $result)

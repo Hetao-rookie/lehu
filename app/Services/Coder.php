@@ -4,9 +4,11 @@ namespace App\Services;
 
 use Storage;
 
-class Code
+class Coder
 {
     protected $codes;
+
+    protected $response = false;
 
     public function __construct()
     {
@@ -15,12 +17,20 @@ class Code
         $this->codes = json_decode($json, true);
     }
 
-    public function statusExists($status){
+    protected function codeExists($status){
 
     }
 
-    public function set()
+    protected function statusExists($status){
+
+    }
+
+    public function code()
     {
+
+    }
+
+    public function status(){
 
     }
 
