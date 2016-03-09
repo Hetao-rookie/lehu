@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 
-
-class AuthController extends Controller
+class UserController extends Controller
 {
     public function login()
     {
-        return $this->response('Login');
+        $user = $this->data();
+
+        return $this->response('Hello login');
     }
 
     public function register()

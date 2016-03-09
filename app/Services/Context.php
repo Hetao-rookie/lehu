@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Services\Coder;
 
-class API extends Coder;
+class Context extends Coder
 {
     protected $request;
 
@@ -30,7 +30,7 @@ class API extends Coder;
 
     }
 
-    public function response($statusCode = 200, $result = '')
+    public function response($result = '',$statusCode = 200)
     {
         return response($result, $statusCode)->header('Content-Type', 'application/json');
     }

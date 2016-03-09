@@ -1,0 +1,17 @@
+{
+  "200": {
+    "message": "success"
+  },
+  "403": {
+    "message": "token error"
+  },
+  "600": {
+    "message": "unknown status"
+  },
+  "700": {
+    "message": "database exception"
+  },
+  "1000": {
+    "message": "the post exists"
+  }
+}

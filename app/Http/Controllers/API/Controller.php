@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Services\Coder;
+use App\Services\Context;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    protected $coder;
+    protected $_parent;
 
-    public function __construct()
+    public function __construct(Context $context)
     {
-        $this->coder = new Coder();
+        $this->_parent = $context;
+    }
+
+    public function __call($method, $args)
+    {
+
+        if (is_callable(array($this->_parent, $method))) {
+            return call_user_func_array(array($this->_parent, $method), $args);
+        }
+
+        return call_user_func_array(array($this, $method), $args);
     }
 
 }

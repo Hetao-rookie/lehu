@@ -12,15 +12,11 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->welcome();
+    return "LEHU 1.0";
 });
 
-$app->get('/hello', function () use ($app) {
-    return 'Hello';
-});
 
 $app->group(['prefix' => 'api', 'namespace' => '\App\Http\Controllers\API'], function () use ($app) {
-
 
     $app->get('login', 'AuthController@login');
 

@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use App\Services\API;
+use App\Services\Context;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
-class APIServiceProvider extends ServiceProvider
+class ContextServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -16,8 +16,8 @@ class APIServiceProvider extends ServiceProvider
     public function register()
     {
 
-      $this->app->bind('App\Services\API', function ($app) {
-          return new API($app->request);
+      $this->app->bind('App\Services\Context', function ($app) {
+          return new Context($app->request);
       });
 
     }

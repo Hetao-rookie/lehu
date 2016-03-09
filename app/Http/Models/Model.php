@@ -8,19 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Basic extends Model
 {
-    protected $coder;
+    protected $_parent;
 
-    public function __construct()
+    public function __construct(Coder $coder)
     {
-        $this->coder = new Coder();
-    }
-
-    public function code($code, $result)
-    {
-        return [
-        'code' => $code,
-        'result' => $result,
-      ];
+        $this->_parent = $coder;
     }
 
     public function transaction($callback)
@@ -46,5 +38,14 @@ class Basic extends Model
           }
 
         return $result;
+    }
+
+    public function __call($method, $args)
+    {
+        if (is_callable(array($this->_parent, $method))) {
+            return call_user_func_array(array($this->_parent, $method), $args);
+        }
+
+        return call_user_func_array(array($this, $method), $args);
     }
 }
