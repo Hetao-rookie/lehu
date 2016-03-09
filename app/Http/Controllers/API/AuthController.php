@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-
-
 class AuthController extends Controller
 {
     public function login()
