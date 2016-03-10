@@ -16,7 +16,6 @@ class Controller extends BaseController
 
     public function __call($method, $args)
     {
-
         if (is_callable(array($this->_parent, $method))) {
             return call_user_func_array(array($this->_parent, $method), $args);
         }
@@ -24,4 +23,8 @@ class Controller extends BaseController
         return call_user_func_array(array($this, $method), $args);
     }
 
+    public function __get($name)
+    {
+        return $this->_parent->$name;
+    }
 }

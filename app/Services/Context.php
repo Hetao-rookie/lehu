@@ -2,17 +2,28 @@
 
 namespace App\Services;
 
+
 use App\Services\Coder;
 
 class Context extends Coder
 {
-    protected $request;
+    public $request;
 
-    public function __construct($request)
+    public $response;
+
+    public $visitor;
+
+    public function __construct($request,$response)
     {
         $this->request = $request;
 
-        $this->response = true;
+        $this->response = $response;
+
+
+        // $this->visitor = 'IMVISITOR';
+
+        // echo $request->get('visitor');
+
     }
 
     public function params()

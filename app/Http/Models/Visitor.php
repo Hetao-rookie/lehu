@@ -12,8 +12,9 @@ class Visitor
 
   public $permissions;
 
-  public function __construct($role){
-    $this->role = $role;
+  public function __construct(){
+    $this->role = 'visitor';
+    $this->username = 'gue';
   }
 
 }
