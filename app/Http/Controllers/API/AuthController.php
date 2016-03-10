@@ -6,9 +6,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        echo '<br><hr>';
-        print_r($this->visitor);
-        return $this->response('Login');
+        return $this->response($this->visitor);
     }
 
     public function register()

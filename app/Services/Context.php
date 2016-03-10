@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-
-use App\Services\Coder;
-
 class Context extends Coder
 {
     public $request;
@@ -13,16 +10,15 @@ class Context extends Coder
 
     public $visitor;
 
-    public function __construct($request,$response)
+    public function __construct($request, $response)
     {
+        $this->visitor = $request->visitor;
+
+        unset($request->visitor);
+
         $this->request = $request;
 
         $this->response = $response;
-
-
-        // $this->visitor = 'IMVISITOR';
-
-        // echo $request->get('visitor');
 
     }
 
@@ -38,12 +34,10 @@ class Context extends Coder
 
     public function file()
     {
-
     }
 
-    public function response($result = '',$statusCode = 200)
+    public function response($result = '', $statusCode = 200)
     {
-        return response($result, $statusCode)->header('Content-Type', 'application/json');
+        return response(json_encode($result), $statusCode)->header('Content-Type', 'application/json');
     }
-
 }

@@ -16,7 +16,7 @@ $app->get('/', function () use ($app) {
 });
 
 
-$app->group(['prefix' => 'api', 'namespace' => '\App\Http\Controllers\API'], function () use ($app) {
+$app->group(['prefix' => 'api','middleware'=>'auth', 'namespace' => '\App\Http\Controllers\API'], function () use ($app) {
 
     $app->get('login', 'AuthController@login');
 

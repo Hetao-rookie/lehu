@@ -3,17 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Services\Context;
 use App\Http\Models\Visitor;
 
 class Authenticate
 {
-    public $context;
-
-    public function __construct(Context $context)
-    {
-      $this->context = $context;
-    }
 
     public function handle($request, Closure $next)
     {
@@ -23,9 +16,7 @@ class Authenticate
 
         $method = $request->method();
 
-        // $request->set('visitor','FROMAUTH');
-
-        echo 'I m AuthMiddleware <br>';
+        $request->visitor = new Visitor();
 
         return $next($request);
     }
