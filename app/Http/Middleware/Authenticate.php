@@ -7,17 +7,36 @@ use App\Http\Models\Visitor;
 
 class Authenticate
 {
+    protected $request;
+
+    protected $visitor;
+
+    protected function authPermissions()
+    {
+        return $this->request;
+    }
+
+    protected function authAccessToken()
+    {
+        // $user_token = $request->header('X-USER-TOKEN');
+      //
+      // $resource = $request->segment(2);
+      //
+      // $method = $request->method();
+      // $request->visitor = new Visitor();
+
+      return $this->authPermissions();
+    }
+
+    protected function auth()
+    {
+        return $this->authAccessToken();
+    }
 
     public function handle($request, Closure $next)
     {
-        $user_token = $request->header('X-USER-TOKEN');
+        $this->request = $request;
 
-        $resource = $request->segment(2);
-
-        $method = $request->method();
-
-        $request->visitor = new Visitor();
-
-        return $next($request);
+        return $next($this->auth());
     }
 }
