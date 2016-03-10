@@ -13,4 +13,4 @@
 
 ### 协议
 
-乐乎内容管理系统遵循[MIT license](http://opensource.org/licenses/MIT)开源协议。
+乐乎内容管理系统遵循[MIT](http://opensource.org/licenses/MIT)开源协议。
