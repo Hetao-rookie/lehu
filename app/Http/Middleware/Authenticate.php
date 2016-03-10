@@ -6,7 +6,7 @@ use Closure;
 use App\Services\Context;
 use App\Http\Models\Visitor;
 
-class AuthMiddleware
+class Authenticate
 {
     public $context;
 
