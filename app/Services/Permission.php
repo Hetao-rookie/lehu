@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class Logger
+class Permission
 {
 
     public function __construct()

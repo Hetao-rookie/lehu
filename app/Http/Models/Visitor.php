@@ -1,20 +1,16 @@
 <?php
+
 namespace App\Http\Models;
 
 class Visitor
 {
+    public $id;
 
-  public $id;
+    public $username;
 
-  public $username;
+    public $role;
 
-  public $role;
+    public $role_name;
 
-  public $permissions;
-
-  public function __construct(){
-    $this->role = 'visitor';
-    $this->username = 'gue';
-  }
-
+    public $access_token;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class Logger
+class Token
 {
 
     public function __construct()

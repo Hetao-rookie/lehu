@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * 上下文服务
+ *
+ * 在接口业务逻辑中，有很多重复和相同的操作，
+ * 上下文服务中对常用操作进行了封装，以简化业务逻辑的开发。
+ *
+ * @author 古月(2016/03)
+ */
+
 namespace App\Services;
 
 class Context extends Coder
@@ -19,7 +28,6 @@ class Context extends Coder
         $this->request = $request;
 
         $this->response = $response;
-
     }
 
     public function params()

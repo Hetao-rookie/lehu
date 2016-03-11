@@ -2,7 +2,7 @@
 
 namespace App\Http\Models;
 
-class User extends Basic
+class User extends Model
 {
     protected $table = 'users';
 
