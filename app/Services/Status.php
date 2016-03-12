@@ -13,7 +13,7 @@ namespace App\Services;
 
 use Storage;
 
-class Responder
+class Status
 {
     protected $statuses;
 
@@ -40,34 +40,18 @@ class Responder
      * 返回状态
      * 识别状态码，返回状态信息.
      *
-     * @param string         $str  状态字符串
-     * @param [array|string] $data 返回的数据
+     *
+     * @param int/string     $code 状态编码或别名
+     * @param [array/string] $data 返回的数据
      *
      * @return object 返回结果对象
      */
-    public function status($str, $data)
+    public function code($status, $data)
     {
         $result = $this->newResult();
         $result->code = $code;
         $result->data = $data;
-        $result->message = $this->getStatusByString($str);
-    }
-
-    /**
-     * 返回状态
-     * 识别状态码，返回状态信息.
-     *
-     * @param int            $code 状态字符串
-     * @param [array|string] $data 返回的数据
-     *
-     * @return object 返回结果对象
-     */
-    public function code($code, $data)
-    {
-        $result = $this->newResult();
-        $result->code = $code;
-        $result->data = $data;
-        $result->message = $this->getMessageByCode($code);
+        $result->message = $this->getMessageByCode($status);
     }
 
     /**
@@ -75,7 +59,7 @@ class Responder
      * 此处是获取定义在JSON文件中的状态对象
      * 根据传入的状态值或者状态码进行匹配.
      *
-     * @param string|int $param 状态值或状态编码
+     * @param string/int $param 状态值或状态编码
      *
      * @return object 匹配返回状态对象
      */
@@ -139,5 +123,16 @@ class Responder
         $result->code = '';
         $result->message = '';
         $result->data = [];
+    }
+
+    /**
+     * 状态报告
+     * 状态列表改动，造成状态代码丢失，
+     * 在程序执行时，报告相关状态信息。
+     *
+     * @param int/string $status 状态码或状态别名
+     */
+    public function report($status)
+    {
     }
 }
