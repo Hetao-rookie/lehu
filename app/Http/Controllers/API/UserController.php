@@ -6,30 +6,21 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    public function login()
-    {
-        $user = $this->data();
 
-        return $this->response('Hello login');
+    public function post(){
+
     }
 
-    public function register()
-    {
+    public function put(){
+
     }
 
-    public function forgot()
-    {
+    public function get(){
+
     }
 
-    public function reset()
-    {
+    public function delete(){
+      
     }
 
-    public function email()
-    {
-    }
-
-    public function sms()
-    {
-    }
 }
