@@ -13,7 +13,7 @@ namespace App\Services;
 
 use Storage;
 
-class Coder
+class Status
 {
     protected $status;
 
