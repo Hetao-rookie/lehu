@@ -13,9 +13,9 @@ namespace App\Services;
 
 use Storage;
 
-class Status
+class Responder
 {
-    protected $status;
+    protected $statuses;
 
     /**
      * 构造函数
@@ -28,7 +28,7 @@ class Status
     {
         if (Storage::exists('status.json')) {
             $context = Storage::get('status.json');
-            if (!$this->status = json_decode($context, true)) {
+            if (!$this->statuses = json_decode($context, true)) {
                 throw new \Exception('status.json file is improperly formatted.');
             }
         } else {

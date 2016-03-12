@@ -11,7 +11,7 @@
 
 namespace App\Services;
 
-class Context extends Coder
+class Context extends Status
 {
     public $request;
 
