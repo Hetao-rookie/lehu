@@ -17,7 +17,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Http\Models\User;
+use App\Models\User;
 
 class Authenticate
 {

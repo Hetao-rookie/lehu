@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+
+use App\Models\User;
 use App\Services\Status;
 use App\Services\Context;
+
 
 class AuthController extends Controller
 {
@@ -11,15 +14,19 @@ class AuthController extends Controller
     {
 
 
-        print_r($status->result(200));
 
 
-        // return response('Hello');
-        // return $this->response($this->visitor);
+
+
+        return $context->response($status->result('Success'));
+
     }
 
     public function register()
     {
+      $user = $context->data();
+
+
     }
 
     public function forgot()

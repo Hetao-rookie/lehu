@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'welcome' => '你好, :name',
+  'Success' => '操作成功！',
 ];
