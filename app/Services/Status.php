@@ -50,12 +50,14 @@ class Status
      *
      * @return stdClass 返回结果对象
      */
-    public function result($status = false, $data = [])
+    public function result($status = false, $data = null)
     {
-        $this->result = new \stdClass();
-        $this->result->code = $this->getCode($status);
-        $this->result->message = $this->getMessage($status);
-        $this->result->data = $data;
+        $result = new \stdClass();
+        $result->code = $this->getCode($status);
+        $result->message = $this->getMessage($status);
+        $result->data = $data;
+
+        return $result;
     }
     /**
      * 获取状态码

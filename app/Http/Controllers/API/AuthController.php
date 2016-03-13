@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
-use Mail;
+use App\Services\Status;
+use App\Services\Context;
 
 class AuthController extends Controller
 {
-    public function login(Context $context)
+    public function login(Context $context, Status $status)
     {
 
-        $result = $this->context->result(200);
+
+        print_r($status->result(200));
+
 
         // return response('Hello');
         // return $this->response($this->visitor);
