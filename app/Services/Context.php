@@ -21,8 +21,6 @@ class Context extends Status
 
     public function __construct($request, $response)
     {
-        // $this->guest = $request->visitor;
-
         $this->request = $request;
 
         $this->response = $response;

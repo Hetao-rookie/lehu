@@ -15,6 +15,7 @@ class AuthController extends Controller
         //   $message->to('297085213@qq.com');
         // });
 
+        return $this->result();
         echo 'Hello';
         // return $this->response($this->visitor);
     }

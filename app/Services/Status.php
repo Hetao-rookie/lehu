@@ -37,16 +37,16 @@ class Status
     }
 
     /**
-     * 返回状态
+     * 结果响应函数
      * 识别状态码，返回状态信息.
+     * 响应状态时，根据状态名称，从本地化文件中读取状态消息。
      *
-     *
-     * @param int/string     $code 状态编码或别名
-     * @param [array/string] $data 返回的数据
+     * @param int/string     $status 状态编码或别名
+     * @param [array/string] $data   返回的数据
      *
      * @return object 返回结果对象
      */
-    public function code($status, $data)
+    public function result($status, $data)
     {
         $result = $this->newResult();
         $result->code = $code;
@@ -56,7 +56,7 @@ class Status
 
     /**
      * 获取状态对象
-     * 此处是获取定义在JSON文件中的状态对象
+     * 此处是获取定义在JSON文件中的状态对象，
      * 根据传入的状态值或者状态码进行匹配.
      *
      * @param string/int $param 状态值或状态编码
