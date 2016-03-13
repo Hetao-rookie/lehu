@@ -17,13 +17,11 @@ class Context extends Status
 
     public $response;
 
-    public $visitor;
+    public $guest;
 
     public function __construct($request, $response)
     {
-        $this->visitor = $request->visitor;
-
-        unset($request->visitor);
+        // $this->guest = $request->visitor;
 
         $this->request = $request;
 

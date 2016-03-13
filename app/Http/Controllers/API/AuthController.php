@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
+use Mail;
+
 class AuthController extends Controller
 {
     public function login()
     {
-        return $this->response($this->visitor);
+        $data = [];
+        Mail::send('mails.welcome', $data, function ($message) {
+          // $message->from('info', 'Laravel');
+
+          $message->to('297085213@qq.com');
+        });
+
+        echo 'Hello';
+        // return $this->response($this->visitor);
     }
 
     public function register()
@@ -28,5 +38,4 @@ class AuthController extends Controller
     public function sms()
     {
     }
-
 }

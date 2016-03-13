@@ -17,60 +17,57 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Http\Models\Visitor;
 
 class Authenticate
 {
-    protected $request;
-
-    protected $method;
-
-    protected $resource;
-
-    protected $visitor;
-
-    protected function generateVisitor()
-    {
-        $this->request->visitor = $this->visitor;
-
-        return $this->request;
-    }
-
-    protected function getPermisssions()
-    {
-    }
-
-    protected function authPermission()
-    {
-        $permission = $this->resource.'.'.$this->method;
-    }
-
-    protected function getRequestParams()
-    {
-        $this->resource = strtolower($this->request->segment(2));
-
-        $this->method = $this->request->method();
-
-        return $this->authPermission();
-    }
-
-    protected function getVisitorByAccessToken()
-    {
-    }
-
-    protected function getAccessToken()
-    {
-        $this->visitor->access_token = $request->header('X-ACCESS-TOKEN') || null;
-
-        return $this->getVisitorByAccessToken();
-    }
-
-    protected function auth()
-    {
-        $this->visitor = new Visitor();
-
-        return $this->getAccessToken();
-    }
+    // protected $request;
+    //
+    // protected $method;
+    //
+    // protected $resource;
+    //
+    // protected $guest;
+    //
+    // protected function generateVisitor()
+    // {
+    //     return $this->request;
+    // }
+    //
+    // protected function getPermisssions()
+    // {
+    // }
+    //
+    // protected function authPermission()
+    // {
+    //     $permission = $this->resource.'.'.$this->method;
+    // }
+    //
+    // protected function getRequestParams()
+    // {
+    //     $this->resource = strtolower($this->request->segment(2));
+    //
+    //     $this->method = $this->request->method();
+    //
+    //     return $this->authPermission();
+    // }
+    //
+    // protected function getVisitorByAccessToken()
+    // {
+    // }
+    //
+    // protected function getAccessToken()
+    // {
+    //     $this->visitor->access_token = $request->header('X-ACCESS-TOKEN') || null;
+    //
+    //     return $this->getVisitorByAccessToken();
+    // }
+    //
+    // protected function auth()
+    // {
+    //     $this->visitor = new Visitor();
+    //
+    //     return $this->getAccessToken();
+    // }
 
     /**
      * 权限验证中间件.
@@ -80,12 +77,14 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        $this->request = $request;
+        // $this->request = $request;
 
-        if ($this->auth()) {
-            return $next($this->request);
-        } else {
-            abort(403);
-        }
+        return $next($request);
+
+        // if ($this->auth()) {
+        //     return $next($this->request);
+        // } else {
+        //     abort(403);
+        // }
     }
 }

@@ -6,6 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateRolesPermissionsTable' => $baseDir . '/database/migrations/2016_03_03_133758_create_roles_permissions_table.php',
+    'CreateRolesTable' => $baseDir . '/database/migrations/2016_03_03_130534_create_roles_table.php',
+    'CreateRolesUsersTable' => $baseDir . '/database/migrations/2016_03_03_133628_create_roles_users_table.php',
+    'CreateUsersTable' => $baseDir . '/database/migrations/2016_03_03_130433_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'ExampleTest' => $baseDir . '/tests/ExampleTest.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

@@ -9,12 +9,11 @@ return [
 
 
   'codes' = [
-      'Success'            => 200,
-      'InvildUserToken'    => 403,
-      'UserTokenIsTimeout' => 406,
-      'DatabaseError'      => 800,
-      ''
-      'UnfindUser'         => 900,
-
+      'Success'                       => 200,
+      'InvildUserToken'               => 403,
+      'UserTokenIsTimeout'            => 406,
+      'DatabaseError'                 => 800,
+      'PermissionConfigFileIsNotFind' => 1001,
+      'UnfindUser'                    => 900,
   ],
 ];
