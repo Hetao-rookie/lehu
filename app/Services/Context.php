@@ -24,22 +24,46 @@ class Context extends Status
         $this->request = $request;
 
         $this->response = $response;
-    }
 
+        // $this->guset = $request->guest;
+    }
+    /**
+     * 获取GET参数.
+     *
+     * @return array GET请求参数
+     */
     public function params()
     {
         return $_GET;
     }
 
+    /**
+     * 获取请求数据
+     * 只接收JSON格式.
+     *
+     * @return array 请求数据数组
+     */
     public function data()
     {
         return json_decode(file_get_contents('php://input'), true);
     }
 
+    /**
+     * 获取请求文件.
+     */
     public function file()
     {
     }
 
+    /**
+     * 响应函数
+     * 以JSON格式输出。
+     *
+     * @param string $result     响应结果
+     * @param int    $statusCode HTTP状态码
+     *
+     * @return Response
+     */
     public function response($result = '', $statusCode = 200)
     {
         return response(json_encode($result), $statusCode)->header('Content-Type', 'application/json');

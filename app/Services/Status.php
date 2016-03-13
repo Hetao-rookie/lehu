@@ -11,8 +11,6 @@
 
 namespace App\Services;
 
-use Storage;
-
 class Status
 {
     /**
@@ -21,14 +19,14 @@ class Status
      *
      * @var stdClass
      */
-    protected $reuslt;
+    protected $result;
 
     /**
      * 状态数组.
      *
      * @var array
      */
-    protected $statuses;
+    protected $statuses = [];
 
     /**
      * 构造函数
@@ -39,17 +37,8 @@ class Status
      */
     public function __construct()
     {
-        if (!Storage::exists('status.json')) {
-            throw new \Exception('status.json file is not exists in /storage/app foulder.');
-        }
-
-        $context = Storage::get('status.json');
-
-        if (!$this->statuses = json_decode($context, true)) {
-            throw new \Exception('status.json file is improperly formatted.');
-        }
-
-        $this->result = new stdClass();
+        $this->statuses = config('status');
+        print_r($this->statuses);
     }
 
     /**
@@ -62,8 +51,9 @@ class Status
      *
      * @return stdClass 返回结果对象
      */
-    public function result($status, $data)
+    public function result($status = false, $data = [])
     {
+        $this->result = new \stdClass();
         $this->result->code = $this->getCode($status);
         $this->result->message = $this->getMessage($status);
         $this->result->data = $data;
@@ -104,6 +94,9 @@ class Status
             $this->report($status);
         }
 
+
+        print_r($this->statuses);
+        
         if (is_int($status)) {
             if (in_array($status, $this->statuses)) {
                 return true;

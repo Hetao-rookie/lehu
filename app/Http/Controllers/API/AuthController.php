@@ -8,15 +8,10 @@ class AuthController extends Controller
 {
     public function login()
     {
-        $data = [];
-        // Mail::send('mails.welcome', $data, function ($message) {
-        //   // $message->from('info', 'Laravel');
-        //
-        //   $message->to('297085213@qq.com');
-        // });
 
-        return $this->result();
-        echo 'Hello';
+
+        $this->result(200);
+        // return response('Hello');
         // return $this->response($this->visitor);
     }
 

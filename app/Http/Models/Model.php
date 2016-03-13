@@ -3,39 +3,44 @@
 namespace App\Http\Models;
 
 use DB;
-use App\Services\Coder;
-use Illuminate\Database\Eloquent\Model;
+use App\Services\Status;
+use Illuminate\Database\Eloquent\Model as BasicModel;
 
-class Basic extends Model
+class Model extends BasicModel
 {
     protected $_parent;
 
-    public function __construct(Coder $coder)
+    /**
+     * 构造函数
+     * 赋值模型基类额外继承对象，通过魔术方法调用，
+     * 状态服务提供给模型标准的函数返回格式。
+     */
+    public function __construct()
     {
-        $this->_parent = $coder;
+        $this->_parent = new Status();
     }
 
+    /**
+     * 模型事务处理
+     * 支持DB和Eloquent.
+     *
+     * @param function $callback 事务处理的回调
+     *
+     * @return mixed
+     */
     public function transaction($callback)
     {
         DB::beginTransaction();
 
-          // We'll simply execute the given callback within a try / catch block
-          // and if we catch any exception we can rollback the transaction
-          // so that none of the changes are persisted to the database.
-          try {
-              $result = $callback($this);
+        try {
+            $result = $callback($this);
 
-              DB::commit();
-          }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
 
-          // If we catch an exception, we will roll back so nothing gets messed
-          // up in the database. Then we'll re-throw the exception so it can
-          // be handled how the developer sees fit for their applications.
-          catch (\Exception $e) {
-              DB::rollBack();
-
-              return $e->getMessage();
-          }
+            return $e->getMessage();
+        }
 
         return $result;
     }
@@ -47,5 +52,10 @@ class Basic extends Model
         }
 
         return call_user_func_array(array($this, $method), $args);
+    }
+
+    public function __get($name)
+    {
+        return $this->_parent->$name;
     }
 }

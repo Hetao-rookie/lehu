@@ -17,10 +17,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Http\Models\User;
 
 class Authenticate
 {
-    // protected $request;
+    protected $request;
     //
     // protected $method;
     //
@@ -77,7 +78,8 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        // $this->request = $request;
+        $this->request = $request;
+        $this->request->geust = new User();
 
         return $next($request);
 
