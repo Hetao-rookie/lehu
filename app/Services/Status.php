@@ -38,7 +38,6 @@ class Status
     public function __construct()
     {
         $this->statuses = config('status');
-        print_r($this->statuses);
     }
 
     /**
@@ -95,8 +94,7 @@ class Status
         }
 
 
-        print_r($this->statuses);
-        
+
         if (is_int($status)) {
             if (in_array($status, $this->statuses)) {
                 return true;

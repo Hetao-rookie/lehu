@@ -53,9 +53,4 @@ class Model extends BasicModel
 
         return call_user_func_array(array($this, $method), $args);
     }
-
-    public function __get($name)
-    {
-        return $this->_parent->$name;
-    }
 }

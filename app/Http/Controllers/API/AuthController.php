@@ -6,11 +6,11 @@ use Mail;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function login(Context $context)
     {
 
+        $result = $this->context->result(200);
 
-        $this->result(200);
         // return response('Hello');
         // return $this->response($this->visitor);
     }
