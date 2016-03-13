@@ -134,6 +134,8 @@ class Status
      * 在程序执行时，报告相关状态信息。
      *
      * @param int/string $status 状态码或状态别名
+     *
+     * TODO 完成不存在状态的记录
      */
     protected function report($status)
     {
