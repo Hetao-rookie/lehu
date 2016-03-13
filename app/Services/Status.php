@@ -15,6 +15,19 @@ use Storage;
 
 class Status
 {
+    /**
+     * 响应结果
+     * 存放请求过程中产生的处理结果.
+     *
+     * @var stdClass
+     */
+    protected $reuslt;
+
+    /**
+     * 状态数组.
+     *
+     * @var array
+     */
     protected $statuses;
 
     /**
@@ -26,103 +39,93 @@ class Status
      */
     public function __construct()
     {
-        if (Storage::exists('status.json')) {
-            $context = Storage::get('status.json');
-            if (!$this->statuses = json_decode($context, true)) {
-                throw new \Exception('status.json file is improperly formatted.');
-            }
-        } else {
+        if (!Storage::exists('status.json')) {
             throw new \Exception('status.json file is not exists in /storage/app foulder.');
         }
+
+        $context = Storage::get('status.json');
+
+        if (!$this->statuses = json_decode($context, true)) {
+            throw new \Exception('status.json file is improperly formatted.');
+        }
+
+        $this->result = new stdClass();
     }
 
     /**
-     * 结果响应函数
+     * 响应结果函数
      * 识别状态码，返回状态信息.
      * 响应状态时，根据状态名称，从本地化文件中读取状态消息。
      *
      * @param int/string     $status 状态编码或别名
      * @param [array/string] $data   返回的数据
      *
-     * @return object 返回结果对象
+     * @return stdClass 返回结果对象
      */
     public function result($status, $data)
     {
-        $result = $this->newResult();
-        $result->code = $code;
-        $result->data = $data;
-        $result->message = $this->getMessageByCode($status);
+        $this->result->code = $this->getCode($status);
+        $this->result->message = $this->getMessage($status);
+        $this->result->data = $data;
     }
-
     /**
-     * 获取状态对象
-     * 此处是获取定义在JSON文件中的状态对象，
-     * 根据传入的状态值或者状态码进行匹配.
+     * 获取状态码
      *
-     * @param string/int $param 状态值或状态编码
+     * @param int/string $status 状态码或状态名称
      *
-     * @return object 匹配返回状态对象
+     * @return int 状态码
      */
-    protected function getStatus($param)
+    protected function getCode($status)
     {
-        if (is_int($param)) {
-            return $this->getMessageByCode($param);
-        } elseif (is_string($param)) {
-            return $this->getStatusByString($param);
-        } else {
-            throw new \Exception('the param must be int or string.');
+        if (!$this->statusExists($status)) {
+            return false;
         }
-    }
 
+        if (is_string($status)) {
+            return $this->statuses[$status];
+        }
+
+        return $status;
+    }
     /**
-     * 根据状态码获取状态对象
+     * 状态存在检查
+     * 状态不存在时记录状态信息到日志.
      *
-     * @param int $code 状态码
+     * @param int/string $status 状态码或名称
      *
-     * @return object 状态对象
+     * @return bool
      */
-    protected function getStatusByCode($code)
+    protected function statusExists($status)
     {
-        foreach ($this->status as $k => $v) {
-            if ($code == $k) {
-                return $v;
+        if (is_string($status)) {
+            if (array_key_exists($status, $this->statuses)) {
+                return true;
             }
+            $this->report($status);
         }
-        throw new \Exception("the code : $code is not defined.");
-    }
 
-    /**
-     * 根据状态值获取状态对象
-     *
-     * @param string $str 状态值
-     *
-     * @return object 状态对象
-     */
-    protected function getStatusByString($str)
-    {
-        $string = strtolower($str);
-        foreach ($this->status as $k => $v) {
-            $message = str_replace(' ', strtolower($v->message));
-            if ($message == $string) {
-                return $v;
+        if (is_int($status)) {
+            if (in_array($status, $this->statuses)) {
+                return true;
             }
+            $this->report($status);
         }
-        throw new \Exception("the status : $str is not defined.");
+
+        return false;
     }
 
     /**
-     * 获取一个新响应结果对象
-     * 在这里定义了标准的响应字段
-     * 返回一个PHP标准对象
+     * 获取状态消息
+     * 状态消息存放在本地化文件中，
+     * 状态消息不存在，返回状态名称.
      *
-     * @return object 标准响应结果对象
+     * @param string $key 状态名称
+     *
+     * @return string 状态消息
      */
-    protected function newResult()
+    protected function getMessage($name)
     {
-        $result = new stdClass();
-        $result->code = '';
-        $result->message = '';
-        $result->data = [];
+        return trans("status.$name");
     }
 
     /**
@@ -132,7 +135,7 @@ class Status
      *
      * @param int/string $status 状态码或状态别名
      */
-    public function report($status)
+    protected function report($status)
     {
     }
 }

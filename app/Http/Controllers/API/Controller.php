@@ -9,6 +9,12 @@ class Controller extends BaseController
 {
     protected $_parent;
 
+    /**
+     * 构造函数
+     * 赋值控制器基类额外继承对象，通过魔术方法调用
+     *
+     * @param App\Service\Context $context 自动依赖注入上下文对象
+     */
     public function __construct(Context $context)
     {
         $this->_parent = $context;
