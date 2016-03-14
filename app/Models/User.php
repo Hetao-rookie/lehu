@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * 用户模型
+ * 定义了用户表相关的操作。
+ *
+ * @author 古月(2016/03)
+ */
+
 namespace App\Models;
 
 use Validator;
@@ -30,9 +37,14 @@ class User extends Model
     // 执行成功则返回创建后的用户数组。
     public function post($user)
     {
+        $user['password'] = bcrypt($user['password']);
+
+        $user['status'] = isset($user['status']) ? $user['status'] : 0;
+
         $result = $this->transaction(function () use ($user) {
 
           $user = $this->create($user);
+          unset($user->password);
 
           return $user;
         });
@@ -78,6 +90,7 @@ class User extends Model
         return  Validator::make($data, [
                 'username' => "required|unique:$this->table|max:255",
                 'password' => 'required|min:6',
+                'role' => 'required',
             ]);
     }
 }

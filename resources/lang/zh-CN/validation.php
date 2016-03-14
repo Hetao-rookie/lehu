@@ -57,7 +57,7 @@ return [
     'not_in'               => 'The selected :attribute is invalid.',
     'numeric'              => 'The :attribute must be a number.',
     'regex'                => 'The :attribute format is invalid.',
-    'required'             => 'The :attribute field is required.',
+    'required'             => ':attribute不能为空',
     'required_if'          => 'The :attribute field is required when :other is :value.',
     'required_with'        => 'The :attribute field is required when :values is present.',
     'required_with_all'    => 'The :attribute field is required when :values is present.',
@@ -70,8 +70,8 @@ return [
         'string'  => 'The :attribute must be :size characters.',
         'array'   => 'The :attribute must contain :size items.',
     ],
-    'unique'               => '字段:attribute已经存在.',
-    'url'                  => '字段:attribute格式错误.',
+    'unique'               => ':attribute已经存在',
+    'url'                  => ':attribute格式错误',
     'timezone'             => 'The :attribute must be a valid zone.',
 
     /*
@@ -102,6 +102,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+      'username' => '用户名',
+      'password' => '密码',
+      'role' => '角色',
+    ],
 
 ];
