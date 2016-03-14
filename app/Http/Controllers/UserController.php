@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
@@ -20,7 +20,7 @@ class UserController extends Controller
     }
 
     public function delete(){
-      
+
     }
 
 }
