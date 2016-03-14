@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Validator;
+
 class User extends Model
 {
     protected $table = 'users';
@@ -30,10 +32,10 @@ class User extends Model
     {
         $result = $this->transaction(function () use ($user) {
 
-        $this->create($user);
+          $user = $this->create($user);
 
-        return true;
-    });
+          return $user;
+        });
 
         return $result;
     }
@@ -64,7 +66,18 @@ class User extends Model
     // 搜索用户
     // 根据传入参数搜索用户
     // 可以检索用户ID，用户名，邮箱
-    public function search(){
+    public function search()
+    {
+    }
 
+    /**
+     * 用户验证
+     */
+    public function validate($data)
+    {
+        return  Validator::make($data, [
+                'username' => "required|unique:$this->table|max:255",
+                'password' => 'required|min:6',
+            ]);
     }
 }

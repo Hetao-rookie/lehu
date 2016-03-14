@@ -95,8 +95,6 @@ class Status
             $this->report($status);
         }
 
-
-
         if (is_int($status)) {
             if (in_array($status, $this->statuses)) {
                 return true;
@@ -116,10 +114,26 @@ class Status
      *
      * @return string 状态消息
      */
-    protected function getMessage($name)
+    protected function getMessage($status)
     {
-        return trans("status.$name");
+        return trans('status.'.$this->getStatusName($status));
     }
+
+     /**
+      * 获取状态名.
+      *
+      * @param  int/string $status 状态码或状态名
+      *
+      * @return string/false        状态名
+      */
+     protected function getStatusName($status)
+     {
+         if (is_int($status)) {
+             return array_search($status, $this->statuses);
+         }
+
+         return $status;
+     }
 
     /**
      * 状态报告
