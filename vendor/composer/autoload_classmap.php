@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateAccessTokensTable' => $baseDir . '/database/migrations/2016_03_14_090158_create_access_tokens_table.php',
     'CreateRolesPermissionsTable' => $baseDir . '/database/migrations/2016_03_03_133758_create_roles_permissions_table.php',
     'CreateRolesTable' => $baseDir . '/database/migrations/2016_03_03_130534_create_roles_table.php',
     'CreateRolesUsersTable' => $baseDir . '/database/migrations/2016_03_03_133628_create_roles_users_table.php',

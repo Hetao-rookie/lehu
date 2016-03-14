@@ -93,4 +93,13 @@ class User extends Model
                 'role' => 'required',
             ]);
     }
+
+    public function postToken(){
+
+    }
+
+    public function getToken(){
+
+    }
+
 }
