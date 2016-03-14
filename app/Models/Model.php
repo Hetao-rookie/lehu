@@ -41,7 +41,7 @@ class Model extends BasicModel
      *
      * @return array 请求结果
      */
-    public function query($table, $params)
+    public function getGenerator($table, $params)
     {
         $query = DB::table($table);
         foreach ($params as $k => $v) {
