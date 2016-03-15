@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use DB;
+
 
 class Role extends Model
 {
-    protected $table = 'roles';
+    protected $table_user = 'roles';
+
+    protected $table_user_role;
+
+    protected $table_role = 'roles'
 
     protected $fillable = [
      'id',

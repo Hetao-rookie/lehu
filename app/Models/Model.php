@@ -3,10 +3,29 @@
 namespace App\Models;
 
 use DB;
-use Illuminate\Database\Eloquent\Model as BasicModel;
+use App\Services\Status;
 
-class Model extends BasicModel
+class Model extends DB
 {
+    protected $status;
+
+    public function __construct()
+    {
+        $this->status = new Status();
+    }
+    /**
+     * 结果响应函数.
+     *
+     * @param int/string $status 状态码或状态名
+     * @param mixed      $data   打印数据
+     *
+     * @return stdClass 响应结果
+     */
+    public function result($status, $data = null)
+    {
+        return $this->status->result($status, $data);
+    }
+
     /**
      * 模型事务处理
      * 支持DB和Eloquent.
@@ -26,7 +45,7 @@ class Model extends BasicModel
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return $e->getMessage();
+            return $this->result(1003,$e->getMessage());
         }
 
         return $result;
@@ -41,14 +60,14 @@ class Model extends BasicModel
      *
      * @return array 请求结果
      */
-    public function getGenerator($table, $params)
+    public function query($table, $params)
     {
         $query = DB::table($table);
         foreach ($params as $k => $v) {
             switch ($k) {
                 case 'order':
                 case 'order_by':
-                  $query = $query->orderBy($params['order_by'],$params['order']);
+                  $query = $query->orderBy($params['order_by'], $params['order']);
                   break;
                 case 'fields':
                   $query = $query->select($v);

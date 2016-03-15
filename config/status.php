@@ -1,10 +1,10 @@
 <?php
 
 return [
-      'Success' => 200,
-      'InvildUserToken' => 403,
-      'UserTokenIsTimeout' => 406,
-      'DatabaseError' => 800,
-      'ValidateError' => 900,
-      'PermissionConfigFileIsNotFind' => 1001,
+      'success'               => 200,
+      'invildAccessToken'     => 1001,
+      'validateError'         => 1002,
+      'databaseOperateError'  => 1003,
+      'permissionsFileMissed' => 1001,
+
 ];

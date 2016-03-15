@@ -15,26 +15,19 @@ class User extends Model
 {
     protected $table = 'users';
 
-    // 可填充字段
-    protected $fillable = [
-     'username',
-     'password',
-     'role',
-     'status',
-     'avatar',
-     'email',
-    ];
+    protected $tableRoles = 'roles';
 
-    // 不允许导出字段
-    protected $guarded = ['password'];
+    protected $tableUserRole = 'user_role';
 
-    // 开启自动生成时间戳
-    public $timestamps = true;
-
-    // 创建用户
-    // 创建用户过程使用事务
-    // 绑定用户到角色到用户的关系表中，
-    // 执行成功则返回创建后的用户数组。
+    /**
+     * 创建用户
+     * 用户创建依赖于角色，采用外键约束。
+     * 故在用户创建之前，应对角色信息进行验证。
+     *
+     * @param array $user 用户信息
+     *
+     * @return result 成功返回创建后的用户   
+     */
     public function post($user)
     {
         $user['password'] = bcrypt($user['password']);
@@ -43,10 +36,10 @@ class User extends Model
 
         $result = $this->transaction(function () use ($user) {
 
-          $user = $this->create($user);
-          unset($user->password);
+          $id = $this::table($this->table)->insertGetId($user);
 
-          return $user;
+          return $this->result(200, $id);
+
         });
 
         return $result;
@@ -94,12 +87,11 @@ class User extends Model
             ]);
     }
 
-    public function postToken(){
-
+    public function postToken()
+    {
     }
 
-    public function getToken(){
-
+    public function getToken()
+    {
     }
-
 }
