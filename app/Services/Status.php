@@ -37,7 +37,7 @@ class Status
      */
     public function __construct()
     {
-        $this->statuses = config('status');
+        $this->statuses = config('statuses');
     }
 
     /**

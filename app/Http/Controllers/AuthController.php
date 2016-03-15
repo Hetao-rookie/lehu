@@ -20,17 +20,11 @@ class AuthController extends Controller
     {
         $data = $context->data();
 
-        $model = new User();
+        $userModel = new User();
 
-        $validator = $model->validate($data);
+        $result = $userModel->post($data);
 
-        if ($validator->fails()) {
-            return $context->response($status->result(200,$validator->errors()));
-        }
-
-        $user = $model->post($data);
-
-        return $context->response($user);
+        return $context->response($result);
     }
 
     // 忘记密码

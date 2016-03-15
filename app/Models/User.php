@@ -13,32 +13,45 @@ use Validator;
 
 class User extends Model
 {
-    protected $table = 'users';
-
-    protected $tableRoles = 'roles';
-
-    protected $tableUserRole = 'user_role';
+    /**
+     * 操作用户.
+     * 添加用户时，该变量为插入数据，
+     * 在编辑用户时，作为更新数据。
+     *
+     * @var array
+     */
+    protected $user;
 
     /**
-     * 创建用户
+     * 添加用户
      * 用户创建依赖于角色，采用外键约束。
      * 故在用户创建之前，应对角色信息进行验证。
      *
      * @param array $user 用户信息
      *
-     * @return result 成功返回创建后的用户   
+     * @return result 成功返回创建后的用户
      */
     public function post($user)
     {
-        $user['password'] = bcrypt($user['password']);
+        $this->initializeUser($user,'post');
 
-        $user['status'] = isset($user['status']) ? $user['status'] : 0;
+        $validateResult = $this->validateUser();
 
-        $result = $this->transaction(function () use ($user) {
+        if ($validateResult !== true) {
+            return $this->result('validateError', $validateResult);
+        }
 
-          $id = $this::table($this->table)->insertGetId($user);
+        if (!$this->validateRole()) {
+            return $this->result('roleNotExists');
+        }
 
-          return $this->result(200, $id);
+        $result = $this->transaction(function () {
+
+          $this->setPassword();
+
+          $id = $this::table($this->tables['USER'])->insertGetId($this->user);
+
+          return $this->result('success', $id);
 
         });
 
@@ -56,8 +69,9 @@ class User extends Model
     // 删除用户
     // 使用事务删除用户，处理用户与角色的关系，
     // 删除成功返回 True。
-    public function delete()
+    public function delete($params, $remove = false)
     {
+
     }
 
     // 获取用户
@@ -75,23 +89,49 @@ class User extends Model
     {
     }
 
-    /**
-     * 用户验证
-     */
-    public function validate($data)
+    protected function initializeUser($user, $scenario = 'put')
     {
-        return  Validator::make($data, [
-                'username' => "required|unique:$this->table|max:255",
+        $initialized = [
+         'role' => config('site.user.role', 'member'),
+         'status' => config('site.user.status', 0),
+         'updated_at' => time(),
+        ];
+
+        if ($scenario == 'post') {
+            $initialized['created_at'] = time();
+        }
+
+        $this->user = array_merge($initialized, $user);
+    }
+
+    protected function validateUser()
+    {
+        $table = $this->tables['USER'];
+
+        $validator = Validator::make($this->user, [
+                'username' => "required|unique:$table|max:255",
                 'password' => 'required|min:6',
                 'role' => 'required',
             ]);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        return true;
     }
 
-    public function postToken()
+    protected function validateRole()
     {
+        $table = $this->tables['ROLE'];
+
+        // $role = $this::table($table)->where('ident', $this->user['role'])->first();
+
+        return true;
     }
 
-    public function getToken()
+    protected function setPassword()
     {
+        $this->user['password'] = bcrypt($this->user['password']);
     }
 }

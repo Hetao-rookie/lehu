@@ -9,23 +9,14 @@ class Model extends DB
 {
     protected $status;
 
+    protected $tables;
+
     public function __construct()
     {
         $this->status = new Status();
-    }
-    /**
-     * 结果响应函数.
-     *
-     * @param int/string $status 状态码或状态名
-     * @param mixed      $data   打印数据
-     *
-     * @return stdClass 响应结果
-     */
-    public function result($status, $data = null)
-    {
-        return $this->status->result($status, $data);
-    }
 
+        $this->tables = config('tables');
+    }
     /**
      * 模型事务处理
      * 支持DB和Eloquent.
@@ -45,12 +36,24 @@ class Model extends DB
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return $this->result(1003,$e->getMessage());
+            return $this->result(1003, $e->getMessage());
         }
 
         return $result;
     }
 
+    /**
+     * 结果响应函数.
+     *
+     * @param int/string $status 状态码或状态名
+     * @param mixed      $data   打印数据
+     *
+     * @return stdClass 响应结果
+     */
+    public function result($status, $data = null)
+    {
+        return $this->status->result($status, $data);
+    }
     /**
      * 查询构造函数
      * 针对单表数据查询构造，用于GET请求输出.

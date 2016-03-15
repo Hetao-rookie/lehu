@@ -19,15 +19,19 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
+// $app->withEloquent();
 
 $app->withFacades();
 
-// $app->withEloquent();
+$app->configure('site');
 
+$app->configure('tables');
 
-$app->configure('status');
+$app->configure('methods');
 
-$app->configure('permission');
+$app->configure('statuses');
+
+$app->configure('permissions');
 
 /*
 |--------------------------------------------------------------------------
@@ -70,7 +74,6 @@ $app->singleton(
 //     // App\Http\Middleware\AuthMiddleware::class,
 // ]);
 
-
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
@@ -90,12 +93,9 @@ $app->routeMiddleware([
 |
 */
 
-
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\StatusServiceProvider::class);
 $app->register(App\Providers\ContextServiceProvider::class);
-
-
 
 /*
 |--------------------------------------------------------------------------
