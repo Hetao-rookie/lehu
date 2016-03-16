@@ -91,5 +91,11 @@ class Model extends DB
                   $query = $query->where($k, $v);
             }
         }
+
+        if (isset($params['count'])) {
+            return $query->count($params['count']);
+        }
+
+        return $query->get();
     }
 }

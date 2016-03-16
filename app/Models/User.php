@@ -22,7 +22,6 @@ class User extends Model
      */
     protected $user;
 
-
     public $timestamps = true;
 
     /**
@@ -36,7 +35,7 @@ class User extends Model
      */
     public function post($user)
     {
-        $this->initializeUser($user,'post');
+        $this->initializeUser($user, true);
 
         $validateResult = $this->validateUser();
 
@@ -44,7 +43,9 @@ class User extends Model
             return $this->result('validateError', $validateResult);
         }
 
-        if (!$this->validateRole()) {
+        $role = $this->validateRole();
+
+        if ($role === false) {
             return $this->result('roleNotExists');
         }
 
@@ -74,14 +75,16 @@ class User extends Model
     // 删除成功返回 True。
     public function delete($params, $remove = false)
     {
-
     }
 
-    // 获取用户
-    // 根据传入参数定义获取用户的方式
-    // 可以配置分页，排序和字段
-
-    public function get()
+    /**
+     * 获取用户
+     *
+     * @param array $params 用户获取条件配置参数
+     *
+     * @return result 用户集
+     */
+    public function get($params)
     {
     }
 
@@ -92,16 +95,23 @@ class User extends Model
     {
     }
 
-    protected function initializeUser($user, $scenario = 'put')
+    /**
+     * 初始化用户
+     * 合并配置文件新用户设置，设置时间戳.
+     *
+     * @param array $user 用户数据
+     * @param bool  $post 调用方法
+     */
+    protected function initializeUser($user, $post = false)
     {
         $initialized = [
          'role' => config('site.user.role', 'member'),
          'status' => config('site.user.status', 0),
-         'updated_at' => time(),
+         'updated_at' => date('Y-m-d H:i:s'),
         ];
 
-        if ($scenario == 'post') {
-            $initialized['created_at'] = time();
+        if ($post) {
+            $initialized['created_at'] = date('Y-m-d H:i:s');
         }
 
         $this->user = array_merge($initialized, $user);
@@ -114,6 +124,7 @@ class User extends Model
         $validator = Validator::make($this->user, [
                 'username' => "required|unique:$table|max:255",
                 'password' => 'required|min:6',
+                'mail' => 'required|unique:$table|max:255',
                 'role' => 'required',
             ]);
 
@@ -126,10 +137,6 @@ class User extends Model
 
     protected function validateRole()
     {
-        $table = $this->tables['ROLE'];
-
-        // $role = $this::table($table)->where('ident', $this->user['role'])->first();
-
         return true;
     }
 
