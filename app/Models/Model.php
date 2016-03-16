@@ -55,7 +55,7 @@ class Model extends DB
         return $this->status->result($status, $data);
     }
     /**
-     * 查询构造函数
+     * 单个资源查询构造函数
      * 针对单表数据查询构造，用于GET请求输出.
      *
      * @param stirng $table  数据表
@@ -63,9 +63,10 @@ class Model extends DB
      *
      * @return array 请求结果
      */
-    public function query($table, $params)
+    public function resource($table, $params)
     {
         $query = DB::table($table);
+        
         foreach ($params as $k => $v) {
             switch ($k) {
                 case 'order':

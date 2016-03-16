@@ -6,5 +6,4 @@ return [
       'validateError'         => 1002,
       'databaseOperateError'  => 1003,
       'permissionsFileMissed' => 1001,
-
 ];

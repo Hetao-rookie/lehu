@@ -35,6 +35,7 @@ class User extends Model
      */
     public function post($user)
     {
+
         $this->initializeUser($user, true);
 
         $validateResult = $this->validateUser();
@@ -42,6 +43,12 @@ class User extends Model
         if ($validateResult !== true) {
             return $this->result('validateError', $validateResult);
         }
+
+        // $this->unbind('POST_POST',$post['type']);
+
+        // $this->bind('USER_POST',$role);
+
+        // $this->check('USER_POST',$this->user['role']);
 
         $role = $this->validateRole();
 
@@ -54,6 +61,8 @@ class User extends Model
           $this->setPassword();
 
           $id = $this::table($this->tables['USER'])->insertGetId($this->user);
+
+
 
           return $this->result('success', $id);
 
