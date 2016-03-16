@@ -22,6 +22,9 @@ class User extends Model
      */
     protected $user;
 
+
+    public $timestamps = true;
+
     /**
      * 添加用户
      * 用户创建依赖于角色，采用外键约束。
