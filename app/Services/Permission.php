@@ -2,7 +2,6 @@
 
 /**
  * 权限服务
- *
  * @author 古月
  */
 
@@ -20,5 +19,12 @@ class Permisson
 
   }
 
-  
+  public bind(){
+
+  }
+
+  public unbind(){
+    
+  }
+
 }

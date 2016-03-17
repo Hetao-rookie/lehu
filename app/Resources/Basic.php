@@ -5,7 +5,7 @@ namespace App\Models;
 use DB;
 use App\Services\Status;
 
-class Model extends DB
+class Basic extends DB
 {
     protected $status;
 
