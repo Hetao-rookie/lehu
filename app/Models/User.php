@@ -35,7 +35,6 @@ class User extends Model
      */
     public function post($user)
     {
-
         $this->initializeUser($user, true);
 
         $validateResult = $this->validateUser();
@@ -58,11 +57,9 @@ class User extends Model
 
         $result = $this->transaction(function () {
 
-          $this->setPassword();
+          $this->processPassword();
 
           $id = $this::table($this->tables['USER'])->insertGetId($this->user);
-
-
 
           return $this->result('success', $id);
 
@@ -86,15 +83,31 @@ class User extends Model
     {
     }
 
+
+    public function generateToken(){
+      return $this->id();
+    }
+
     /**
-     * 获取用户
+     * 获取用户.
      *
      * @param array $params 用户获取条件配置参数
      *
      * @return result 用户集
      */
-    public function get($params)
+    public function get($params, $password = false)
     {
+        $result = $this->resource($this->resources['USER'], $params);
+
+        if ($result->code == 200 && !$password) {
+            foreach ($result->data as $key => $item) {
+                unset($item->password);
+            }
+
+            return $result;
+        }
+
+        return $result;
     }
 
     // 搜索用户
@@ -133,7 +146,7 @@ class User extends Model
         $validator = Validator::make($this->user, [
                 'username' => "required|unique:$table|max:255",
                 'password' => 'required|min:6',
-                'mail' => 'required|unique:$table|max:255',
+                'mail' => "required|unique:$table|max:255",
                 'role' => 'required',
             ]);
 
@@ -149,7 +162,7 @@ class User extends Model
         return true;
     }
 
-    protected function setPassword()
+    public function processPassword()
     {
         $this->user['password'] = bcrypt($this->user['password']);
     }

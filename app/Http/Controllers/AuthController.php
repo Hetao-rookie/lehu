@@ -11,8 +11,21 @@ class AuthController extends Controller
     // 用户登陆
     public function login(Context $context, Status $status)
     {
+        $model = new User();
 
-        return $context->response($status->result('Success'));
+        $data = $context->data();
+
+        $result = $model->get(['username' => $data['username']], true);
+
+        if ($result->code == 200) {
+            if ($result->data[0]->password == $model->processPassword($data['password'])) {
+                $result->data['access_token'] = $model->generateToken();
+
+                return $context->response($result->data);
+            }
+        }
+
+        return $context->response($status->result('loginFaild'));
     }
 
     // 用户注册
@@ -45,5 +58,4 @@ class AuthController extends Controller
     public function sms()
     {
     }
-
 }

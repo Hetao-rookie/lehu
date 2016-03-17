@@ -11,12 +11,21 @@ class Model extends DB
 
     protected $tables;
 
+    protected $resources;
+
     public function __construct()
     {
         $this->status = new Status();
 
         $this->tables = config('tables');
+
+        $this->resources = config('tables');
     }
+
+    public function id(){
+      return substr(sha1(uniqid(mt_rand(1,1000000))),8,24);
+    }
+
     /**
      * 模型事务处理
      * 支持DB和Eloquent.
@@ -66,7 +75,7 @@ class Model extends DB
     public function resource($table, $params)
     {
         $query = DB::table($table);
-        
+
         foreach ($params as $k => $v) {
             switch ($k) {
                 case 'order':
@@ -94,9 +103,18 @@ class Model extends DB
         }
 
         if (isset($params['count'])) {
-            return $query->count($params['count']);
+            return $this->resourceResult($query->count($params['count']));
         }
 
-        return $query->get();
+        return $this->resourceResult($query->get());
+    }
+
+    protected function resourceResult($result)
+    {
+        if (count($result) > 0) {
+            return $this->result('success', $result);
+        }
+
+        return $this->result('noQueryResult');
     }
 }

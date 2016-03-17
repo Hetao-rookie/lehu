@@ -18,7 +18,10 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix' => 'api','middleware'=>'auth', 'namespace' => '\App\Http\Controllers'], function () use ($app) {
 
-    $app->get('login', 'AuthController@login');
+    $app->post('login', 'AuthController@login');
     $app->post('register', 'AuthController@register');
+
+    $app->get('users', 'UserController@get');
+
 
 });

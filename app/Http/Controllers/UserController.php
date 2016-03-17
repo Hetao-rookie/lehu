@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-
+use App\Models\User;
+use App\Services\Status;
+use App\Services\Context;
 class UserController extends Controller
 {
 
@@ -15,7 +16,15 @@ class UserController extends Controller
 
     }
 
-    public function get(){
+    public function get(Context $context){
+
+      $model = new User();
+
+      $params = $context->params();
+
+      $result = $model->get($params);
+
+      return $context->response($result);
 
     }
 
