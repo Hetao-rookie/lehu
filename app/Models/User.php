@@ -83,9 +83,9 @@ class User extends Model
     {
     }
 
-
-    public function generateToken(){
-      return $this->id();
+    public function generateToken()
+    {
+        return $this->id();
     }
 
     /**
@@ -97,7 +97,7 @@ class User extends Model
      */
     public function get($params, $password = false)
     {
-        $result = $this->resource($this->resources['USER'], $params);
+        $result = $this->resource($this->tables['USER'], $params);
 
         if ($result->code == 200 && !$password) {
             foreach ($result->data as $key => $item) {
@@ -162,8 +162,41 @@ class User extends Model
         return true;
     }
 
-    public function processPassword()
+    protected function processPassword()
     {
-        $this->user['password'] = bcrypt($this->user['password']);
+        $this->user['password'] = $this->encryptPassword($this->user['password']);
+    }
+
+    public function encryptPassword($password)
+    {
+        return md5($password);
+    }
+
+    public function accessToken($user)
+    {
+        $this->user = $user;
+        if ($this->storeAccessToken()) {
+            return true;
+        }
+
+        return $this->result('accessTokenStoreFailed');
+    }
+
+    protected function storeAccessToken()
+    {
+        return $this::table($this->tables['ACCESSTOKEN'])->insert($this->getAccessTokenRow());
+    }
+
+    protected function getAccessTokenRow()
+    {
+        $row['user_id'] = $this->user['id'];
+        $row['access_token'] = $this->generateAccessToken($this->user);
+
+        return $row;
+    }
+
+    public function generateAccessToken($user)
+    {
+        return md5($user['password']);
     }
 }

@@ -17,15 +17,29 @@ class AuthController extends Controller
 
         $result = $model->get(['username' => $data['username']], true);
 
-        if ($result->code == 200) {
-            if ($result->data[0]->password == $model->processPassword($data['password'])) {
-                $result->data['access_token'] = $model->generateToken();
-
-                return $context->response($result->data);
-            }
+        if ($result->code != 200) {
+            return $context->response($result);
         }
 
-        return $context->response($status->result('loginFaild'));
+        $user = $result->data[0];
+
+        if ($user->password != $model->encryptPassword($data['password'])) {
+            $result = $status->result('invialidPasswordOrUser');
+
+            return $context->response($result);
+        }
+
+        $result = $model->accessToken((array) $user);
+
+        if ($result->code != 200) {
+            return $context->response($result);
+        }
+
+        $user->access_token = $result->data[0];
+
+        unset($user->password);
+
+        return $context->response($status->result('success', $user));
     }
 
     // 用户注册

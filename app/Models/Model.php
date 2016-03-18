@@ -9,15 +9,13 @@ class Model extends DB
 {
     protected $status;
 
-    protected $resources;
+    protected $tables;
 
     public function __construct()
     {
         $this->status = new Status();
 
         $this->tables = config('tables');
-
-        $this->resources = config('tables');
     }
 
     public function id(){

@@ -13,4 +13,5 @@ return [
   'FILE'       => '文件',
   'FOLDER'     => '文件夹',
   'CONTRACT'   => '沟通',
+  'SYSTEM'     => '系统',
 ];
