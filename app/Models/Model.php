@@ -9,17 +9,29 @@ class Model extends DB
 {
     protected $status;
 
-    protected $tables;
+    protected $resorces;
 
     public function __construct()
     {
         $this->status = new Status();
 
-        $this->tables = config('tables');
+        $this->resorces = config('resorces');
     }
 
-    public function id(){
-      return substr(sha1(uniqid(mt_rand(1,1000000))),8,24);
+    /**
+     * 生成资源ID
+     * ID生成可能会有冲撞问题。
+     *
+     * @return string ID
+     */
+    public function getID()
+    {
+        return substr(sha1(uniqid(mt_rand(1, 1000000))), 8, 24);
+    }
+
+    public function getTable($resource)
+    {
+        return $this->resorces[$resource];
     }
 
     /**

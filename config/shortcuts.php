@@ -2,12 +2,12 @@
 
 return [
   [
-    'name'=>trans('dashbord'),
+    'name'=>trans('shortcuts.dashbord'),
     'permission'=>'DASHBORD_GET',
     'uri'=>'dashbord',
   ],
   [
-    'name'=>'用户',
+    'name'=>trans('shortcuts.user'),
     'permission'=>'USER_GET',
     'uri'=>'user'
   ],

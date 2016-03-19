@@ -7,6 +7,8 @@
 
 namespace App\Services;
 
+use App\Models\Model;
+
 class Permisson
 {
   protected $permissions;
@@ -15,16 +17,20 @@ class Permisson
     $this->permissions = config('permissions');
   }
 
-  public check($permission){
+  public function check($permission){
 
   }
 
-  public bind(){
+  public function bind(){
 
   }
 
-  public unbind(){
-    
+  public function unbind(){
+
+  }
+
+  public function register(){
+
   }
 
 }

@@ -23,14 +23,11 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-$app->configure('site');
 
-$app->configure('tables');
-
-$app->configure('methods');
-
+$app->configure('system');
 $app->configure('statuses');
-
+$app->configure('resorces');
+$app->configure('shortcuts');
 $app->configure('permissions');
 
 /*

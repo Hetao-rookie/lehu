@@ -32,8 +32,16 @@ class Context
      *
      * @return array GET请求参数
      */
-    public function params()
+    public function params($field = false)
     {
+        if ($field !== false) {
+            if (isset($_GET[$field])) {
+                return $_GET[$field];
+            }
+
+            return false;
+        }
+
         return $_GET;
     }
 

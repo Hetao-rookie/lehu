@@ -23,5 +23,6 @@ $app->group(['prefix' => 'api','middleware'=>'auth', 'namespace' => '\App\Http\C
 
     $app->get('users', 'UserController@get');
 
+    $app->get('system/install','SystemController@install');
 
 });
