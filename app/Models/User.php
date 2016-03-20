@@ -72,6 +72,7 @@ class User extends Model
     // 用户更新成功返回 True。
     public function put()
     {
+      
     }
 
     // 删除用户
@@ -189,7 +190,7 @@ class User extends Model
     {
         $row['user_id'] = $this->user['id'];
         $row['access_token'] = $this->user['access_token'] = $this->generateAccessToken($this->user);
-        
+
         return $row;
     }
 

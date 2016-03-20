@@ -2,23 +2,8 @@
 
 namespace App\Models;
 
-
-
 class Role extends Model
 {
-    protected $table_user = 'roles';
-
-    protected $table_user_role;
-
-    protected $table_role = 'roles'
-
-    protected $fillable = [
-     'id',
-     'name',
-     'ident',
-     'description',
-     'status',
-    ];
 
     public $timestamps = true;
 
@@ -51,12 +36,12 @@ class Role extends Model
 
     }
 
-    public function postPermissions($user_id,$permissions){
+    protected function postPermissions($user_id,$permissions){
 
     }
 
-    public function getPermissions($user_id,$permissions){
+    protected function getPermissions($user_id,$permissions){
 
     }
-    
+
 }
