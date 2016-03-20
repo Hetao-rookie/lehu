@@ -161,7 +161,7 @@ gulp.task('browser', function() {
 });
 
 // 开启服务
-gulp.task('default', gulp.series('version-js', 'inject-controllers', 'inject-models', 'js-images-map', 'compass', 'browser'), function(callback) {
+gulp.task('default', gulp.series('compass', 'browser'), function(callback) {
   callback();
 });
 
