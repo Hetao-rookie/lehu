@@ -22,8 +22,6 @@ class User extends Model
      */
     protected $user;
 
-    public $timestamps = true;
-
     /**
      * 添加用户
      * 用户创建依赖于角色，采用外键约束。
@@ -59,7 +57,7 @@ class User extends Model
 
           $this->processPassword();
 
-          $id = $this::table($this->tables['USER'])->insertGetId($this->user);
+          $id = $this->table($this->getTable('USER'))->insertGetId($this->user);
 
           return $this->result('success', $id);
 
@@ -97,7 +95,7 @@ class User extends Model
      */
     public function get($params, $password = false)
     {
-        $result = $this->resource($this->tables['USER'], $params);
+        $result = $this->resource($this->getTable('USER'), $params);
 
         if ($result->code == 200 && !$password) {
             foreach ($result->data as $key => $item) {
@@ -141,7 +139,7 @@ class User extends Model
 
     protected function validateUser()
     {
-        $table = $this->tables['USER'];
+        $table = $this->getTable('USER');
 
         $validator = Validator::make($this->user, [
                 'username' => "required|unique:$table|max:255",
@@ -176,22 +174,22 @@ class User extends Model
     {
         $this->user = $user;
         if ($this->storeAccessToken()) {
-            return true;
+            return $this->user['access_token'];
         }
 
-        return $this->result('accessTokenStoreFailed');
+        throw new \Exception('Store Access Token Error', 1);
     }
 
     protected function storeAccessToken()
     {
-        return $this::table($this->tables['ACCESSTOKEN'])->insert($this->getAccessTokenRow());
+        return $this->table($this->getTable('ACCESSTOKEN'))->insert($this->getAccessTokenRow());
     }
 
     protected function getAccessTokenRow()
     {
         $row['user_id'] = $this->user['id'];
-        $row['access_token'] = $this->generateAccessToken($this->user);
-
+        $row['access_token'] = $this->user['access_token'] = $this->generateAccessToken($this->user);
+        
         return $row;
     }
 

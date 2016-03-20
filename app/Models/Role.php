@@ -43,9 +43,20 @@ class Role extends Model
 
     public function delete()
     {
+
     }
 
     public function get($params)
     {
+
     }
+
+    public function postPermissions($user_id,$permissions){
+
+    }
+
+    public function getPermissions($user_id,$permissions){
+
+    }
+    
 }

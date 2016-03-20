@@ -1,20 +1,19 @@
 <?php
 
-/**
- * 权限服务
- * @author 古月
- */
+namespace App\Models;
 
-namespace App\Services;
 
-use App\Models\Model;
 
-class Permisson
+class Permission extends Model
 {
   protected $permissions;
 
   public function __construct(){
     $this->permissions = config('permissions');
+  }
+
+  public function get(){
+    
   }
 
   public function check($permission){
@@ -32,5 +31,4 @@ class Permisson
   public function register(){
 
   }
-
 }

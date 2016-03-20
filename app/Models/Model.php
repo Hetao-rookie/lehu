@@ -9,13 +9,13 @@ class Model extends DB
 {
     protected $status;
 
-    protected $resorces;
+    protected $resources;
 
     public function __construct()
     {
         $this->status = new Status();
 
-        $this->resorces = config('resources');
+        $this->resources = config('resources');
     }
 
     /**
@@ -31,7 +31,13 @@ class Model extends DB
 
     public function getTable($resource)
     {
-        return $this->resorces[$resource];
+        if (key_exists($resource, $this->resources)) {
+            return $this->resources[$resource];
+        } elseif (key_exists("L:$resource", $this->resources)) {
+            return $this->resources["L:$resource"];
+        } else {
+            throw \Exception("Resource $resource is not exists");
+        }
     }
 
     /**
@@ -112,6 +118,10 @@ class Model extends DB
 
         if (isset($params['count'])) {
             return $this->resourceResult($query->count($params['count']));
+        }
+
+        if (isset($params['single'])) {
+            return $this->resourceResult($query->limit(1) > get());
         }
 
         return $this->resourceResult($query->get());

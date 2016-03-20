@@ -13,6 +13,7 @@ class CreateAccessTokensTable extends Migration
         Schema::create('access_tokens', function (Blueprint $table) {
           $table->string('access_token');
           $table->integer('user_id');
+          $table->string('client');
           $table->primary('access_token');
       });
     }

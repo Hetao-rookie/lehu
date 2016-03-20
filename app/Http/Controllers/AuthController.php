@@ -9,13 +9,25 @@ use App\Services\Context;
 class AuthController extends Controller
 {
     // 用户登陆
-    public function login(Context $context, Status $status)
+    public function login(Context $context)
+    {
+        $mode = $context->params('mode');
+        $context->guest = $context->data();
+
+        if ($mode == 'mail') {
+            return $this->loginByMail($context);
+        } else {
+            return $this->loginByUsername($context);
+        }
+    }
+
+    protected function loginByUsername($context)
     {
         $model = new User();
 
-        $data = $context->data();
+        $status = new Status();
 
-        $result = $model->get(['username' => $data['username']], true);
+        $result = $model->get(['username' => $context->guest['username']], true);
 
         if ($result->code != 200) {
             return $context->response($result);
@@ -23,23 +35,22 @@ class AuthController extends Controller
 
         $user = $result->data[0];
 
-        if ($user->password != $model->encryptPassword($data['password'])) {
-            $result = $status->result('invialidPasswordOrUser');
+        if ($user->password != $model->encryptPassword($context->guest['password'])) {
+            $result = $status->result('invialidPasswordOrUsername');
 
             return $context->response($result);
         }
 
-        $result = $model->accessToken((array) $user);
-
-        if ($result->code != 200) {
-            return $context->response($result);
-        }
-
-        $user->access_token = $result->data[0];
+        $user->access_token = $model->accessToken((array) $user);
 
         unset($user->password);
 
         return $context->response($status->result('success', $user));
+    }
+
+    protected function loginByMail()
+    {
+      
     }
 
     // 用户注册
@@ -65,11 +76,19 @@ class AuthController extends Controller
     }
 
     // 发送邮件
-    public function email()
+    public function sendRegisterMail()
     {
     }
 
-    public function sms()
+    public function sendRegisterSMS()
+    {
+    }
+
+    public function sendForgotPasswordMail()
+    {
+    }
+
+    public function sendForgotPasswordSMS()
     {
     }
 }
