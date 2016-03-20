@@ -7,10 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CreateAccessTokensTable' => $baseDir . '/database/migrations/2016_03_14_090160_create_access_tokens_table.php',
-    'CreatePermissionsMetasTable' => $baseDir . '/database/migrations/2016_03_16_164118_create_permissions_metas_table.php',
     'CreatePermissionsRelationshipsTable' => $baseDir . '/database/migrations/2016_03_03_133758_create_permissions_relationships_table.php',
     'CreatePermissionsTable' => $baseDir . '/database/migrations/2016_03_16_160108_create_permissions_table.php',
     'CreateResoucesTable' => $baseDir . '/database/migrations/2016_03_17_141207_create_resouces_table.php',
+    'CreateResourcesTable' => $baseDir . '/database/migrations/2016_03_20_064334_create_resources_table.php',
     'CreateRolesRelationshipsTable' => $baseDir . '/database/migrations/2016_03_03_133628_create_roles_relationships_table.php',
     'CreateRolesTable' => $baseDir . '/database/migrations/2016_03_03_130534_create_roles_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2016_03_03_130433_create_users_table.php',

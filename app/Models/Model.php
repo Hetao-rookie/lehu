@@ -15,7 +15,7 @@ class Model extends DB
     {
         $this->status = new Status();
 
-        $this->resorces = config('resorces');
+        $this->resorces = config('resources');
     }
 
     /**
@@ -82,7 +82,7 @@ class Model extends DB
      */
     public function resource($table, $params)
     {
-        $query = DB::table($table);
+        $query = $this->table($table);
 
         foreach ($params as $k => $v) {
             switch ($k) {
@@ -124,5 +124,10 @@ class Model extends DB
         }
 
         return $this->result('noQueryResult');
+    }
+
+    public function table($table)
+    {
+        return DB::table($table);
     }
 }

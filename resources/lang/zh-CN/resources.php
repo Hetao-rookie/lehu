@@ -12,6 +12,6 @@ return [
   'POST'       => '内容',
   'FILE'       => '文件',
   'FOLDER'     => '文件夹',
-  'CONTRACT'   => '沟通',
+  'MESSAGE'    => '沟通',
   'SYSTEM'     => '系统',
 ];

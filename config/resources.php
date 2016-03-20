@@ -1,16 +1,19 @@
 <?php
 
 return [
+  'LOG'                      => '-',
   'USER'                     => 'users',
   'ROLE'                     => 'roles',
+  'POST'                     => 'posts',
   'TERM'                     => 'terms',
+  'FILE'                     => 'files',
   'FOLDER'                   => 'folders',
-  'COMMENT'                  => 'comments',
-  'T_POST'                   => 'posts',
-  'T_FILE'                   => 'files',
-  'A_ACCESSTOKEN'            => 'access_tokens',
-  'A_TERMRELATIONSHIP'       => 'terms_relationships',
-  'A_ROLERELATIONSHIP'       => 'roles_relationships',
-  'A_PERMISSIONRELATIONSHIP' => 'permissions_relationships',
-  'SYSTEM'                   => '~',
+  'SYSTEM'                   => '-',
+  'MESSAGE'                  => 'messages',
+  'RESOURCE'                 => 'resources',
+  'PERMISSION'               => 'permissions',
+  'L:ACCESSTOKEN'            => 'access_tokens',
+  'L:TERMRELATIONSHIP'       => 'terms_relationships',
+  'L:ROLERELATIONSHIP'       => 'roles_relationships',
+  'L:PERMISSIONRELATIONSHIP' => 'permissions_relationships',
 ];

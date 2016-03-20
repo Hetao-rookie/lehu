@@ -26,7 +26,7 @@ $app->withFacades();
 
 $app->configure('system');
 $app->configure('statuses');
-$app->configure('resorces');
+$app->configure('resources');
 $app->configure('shortcuts');
 $app->configure('permissions');
 

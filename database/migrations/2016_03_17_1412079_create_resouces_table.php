@@ -11,11 +11,11 @@ class CreateResoucesTable extends Migration
     public function up()
     {
         Schema::create('resources', function (Blueprint $table) {
-          $table->integer('id');
           $table->string('ident');
           $table->string('name');
           $table->string('parent');
-          $table->primary('id');
+          $table->string('source');
+          $table->primary('ident');
       });
     }
 
