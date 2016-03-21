@@ -13,6 +13,8 @@ return array(
     'CreateResourcesTable' => $baseDir . '/database/migrations/2016_03_20_064334_create_resources_table.php',
     'CreateRolesRelationshipsTable' => $baseDir . '/database/migrations/2016_03_03_133628_create_roles_relationships_table.php',
     'CreateRolesTable' => $baseDir . '/database/migrations/2016_03_03_130534_create_roles_table.php',
+    'CreateTermsRelationshipsTable' => $baseDir . '/database/migrations/2016_03_17_031635_create_terms_relationships_table.php',
+    'CreateTermsTable' => $baseDir . '/database/migrations/2016_03_17_031600_create_terms_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2016_03_03_130433_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'ExampleTest' => $baseDir . '/tests/ExampleTest.php',

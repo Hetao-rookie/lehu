@@ -6,14 +6,14 @@
  * 如果调用到相关权限时，未找到注册信息，则发送邮件，或短信，并在管理页面进行提示显示
  */
 
-return [
-'USER_POST',
-'USER_DELETE',
-'USER_PUT',
-'USER_DELETE',
-'T:POST_POST',
-'T:POST_DELETE',
-'T:POST_PUT',
+return array(
+'USER_POST' => 'POST:users',
+'USER_DELETE' => 'DELETE:users',
+'USER_PUT' => 'PUT:users',
+'USER_GET' => 'GET:users',
+'T:POST_POST' => 'POST:posts?type',
+'T:POST_DELETE' => 'DELETE:posts?type',
+'T:POST_PUT'=>'PUT:posts?type',
 'T:POST_GET',
 'T:FILE_POST',
 'T:FILE_PUT',
@@ -23,4 +23,4 @@ return [
 'T:LOG_DELETE',
 'SYSTEM_CONFIG_MAIL',
 'SYSTEM_CONFIG_USER_GUEST',
-];
+);
